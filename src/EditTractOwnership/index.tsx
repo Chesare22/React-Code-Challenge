@@ -2,9 +2,8 @@ import React from 'react';
 
 import { MineralInterest } from '../Types';
 
-import { Form, Table, Button } from 'react-bootstrap';
-import Icon from '../Icon';
-import InputWithAppendedText from '../atoms/InputWithAppendedText';
+import { Table } from 'react-bootstrap';
+import MineralInterestRow from './MineralInterestRow';
 
 interface TableHeader {
   text: string,
@@ -22,6 +21,10 @@ const headersJSX = tableHeaders.map(({text, colSpan}) => (
   <th key={text} colSpan={colSpan}> {text} </th>
 ));
 
+const toMineralInterestRow = (mineralInterest: MineralInterest) => (
+  <MineralInterestRow key={mineralInterest.id} value={mineralInterest} />
+)
+
 const EditTractOwnership = ({ value = [], onChange = () => { } }: {value: MineralInterest[], onChange?: Function}) => {
   return (
     <Table>
@@ -29,25 +32,7 @@ const EditTractOwnership = ({ value = [], onChange = () => { } }: {value: Minera
         <tr>{headersJSX}</tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
-            <Form.Control type="text" value={value[0].owner} />
-          </td>
-          <td>
-            <InputWithAppendedText type="text" value={value[0].interest}>
-              %
-            </InputWithAppendedText>
-          </td>
-          <td>
-            {/* NPRI interest column */}
-          </td>
-          <td>
-            <Form.Control type="text" value={value[0].lease} />
-          </td>
-          <td>
-            <Button variant="light">{Icon({icon: 'remove'})}</Button>
-          </td>
-        </tr>
+        {value.map(toMineralInterestRow)}
       </tbody>
     </Table>
   );
