@@ -4,9 +4,9 @@ interface Npri {
   interest: number;
 }
 
-interface Tract extends Npri {
+interface MineralInterest extends Npri {
   npris: Npri[];
   lease: string;
 }
 
-export type { Tract, Npri };
+export type { MineralInterest, Npri };

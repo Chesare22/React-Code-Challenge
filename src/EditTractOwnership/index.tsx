@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Tract } from '../Types';
+import { MineralInterest } from '../Types';
 
 import { Form, Table, Button } from 'react-bootstrap';
 import Icon from '../Icon';
@@ -22,7 +22,7 @@ const headersJSX = tableHeaders.map(({text, colSpan}) => (
   <th key={text} colSpan={colSpan}> {text} </th>
 ));
 
-const EditTractOwnership = ({ value = [], onChange = () => { } }: {value: Tract[], onChange?: Function}) => {
+const EditTractOwnership = ({ value = [], onChange = () => { } }: {value: MineralInterest[], onChange?: Function}) => {
   return (
     <Table>
       <thead>
