@@ -1,12 +1,12 @@
 interface Npri {
-  id: String;
-  owner: String;
+  id: string;
+  owner: string;
   interest: number;
 }
 
 interface Tract extends Npri {
   npris: Npri[];
-  lease: String;
+  lease: string;
 }
 
 export type { Tract, Npri };
