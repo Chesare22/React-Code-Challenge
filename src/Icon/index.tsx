@@ -1,6 +1,9 @@
 import React from 'react';
+
+import * as Types from 'Types';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { IconProp, library } from '@fortawesome/fontawesome-svg-core';
 import {
   faLevelUpAlt,
   faMinusCircle,
@@ -10,7 +13,12 @@ import {
 
 library.add(faLevelUpAlt, faMinusCircle, faPlus, faSmile);
 
-const getIconProps = icon => {
+function getIconProps(
+  icon: Types.Icon
+): {
+  icon: IconProp;
+  rotation?: Types.Rotation;
+} {
   switch (icon) {
     case 'add':
       return {
@@ -29,12 +37,10 @@ const getIconProps = icon => {
       return {
         icon: 'smile',
       };
-    default:
-      return {};
   }
-};
+}
 
-const Icon = ({ icon }) => {
+const Icon = ({ icon }: { icon: Types.Icon }) => {
   const iconProps = getIconProps(icon);
 
   return <FontAwesomeIcon {...iconProps} />;

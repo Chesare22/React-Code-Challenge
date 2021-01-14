@@ -9,4 +9,7 @@ interface MineralInterest extends Npri {
   lease: string;
 }
 
-export type { MineralInterest, Npri };
+type Icon = 'add' | 'indent' | 'remove' | 'smile';
+type Rotation = 90 | 180 | 270 | undefined;
+
+export type { MineralInterest, Npri, Icon, Rotation };
