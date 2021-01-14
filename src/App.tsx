@@ -1,6 +1,7 @@
 import React from 'react';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { Tract } from './Types';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -8,7 +9,7 @@ import './App.css';
 import EditTractOwnership from './EditTractOwnership';
 import Icon from './Icon';
 
-const tractOwnerships = [
+const tractOwnerships: Tract[] = [
   {
     id: uuidv4(),
     owner: 'Luke Skywalker',
