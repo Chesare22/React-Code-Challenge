@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MineralInterest } from '../Types';
+import { MineralInterest } from 'Types';
 
 import { Table } from 'react-bootstrap';
 import MineralInterestRow from './MineralInterestRow';
