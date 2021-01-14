@@ -10,26 +10,28 @@ interface TableHeader {
   colSpan?: number,
 }
 
+const toThElement = ({text, colSpan}: TableHeader) => (
+  <th key={text} colSpan={colSpan}> {text} </th>
+);
+
 const tableHeaders: TableHeader[] = [
   {text: 'Owner'},
   {text: 'Mineral Interest'},
   {text: 'NPRI'},
   {text: 'Lease', colSpan: 2},
-]
+];
 
-const headersJSX = tableHeaders.map(({text, colSpan}) => (
-  <th key={text} colSpan={colSpan}> {text} </th>
-));
+const thElements = tableHeaders.map(toThElement);
 
 const toMineralInterestRow = (mineralInterest: MineralInterest) => (
   <MineralInterestRow key={mineralInterest.id} value={mineralInterest} />
-)
+);
 
 const EditTractOwnership = ({ value = [], onChange = () => { } }: {value: MineralInterest[], onChange?: Function}) => {
   return (
     <Table>
       <thead>
-        <tr>{headersJSX}</tr>
+        <tr>{thElements}</tr>
       </thead>
       <tbody>
         {value.map(toMineralInterestRow)}
