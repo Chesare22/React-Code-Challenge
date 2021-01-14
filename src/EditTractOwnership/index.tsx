@@ -6,25 +6,27 @@ import { Table } from 'react-bootstrap';
 import MineralInterestRow from './MineralInterestRow';
 import NpriRow from './NpriRow';
 
-interface TableHeader {
-  text: string;
-  colSpan?: number;
-}
+const thElements = (function () {
+  interface TableHeader {
+    text: string;
+    colSpan?: number;
+  }
 
-const toThElement = ({ text, colSpan }: TableHeader) => (
-  <th key={text} colSpan={colSpan}>
-    {text}
-  </th>
-);
+  const toThElement = ({ text, colSpan }: TableHeader) => (
+    <th key={text} colSpan={colSpan}>
+      {text}
+    </th>
+  );
 
-const tableHeaders: TableHeader[] = [
-  { text: 'Owner' },
-  { text: 'Mineral Interest' },
-  { text: 'NPRI' },
-  { text: 'Lease', colSpan: 2 },
-];
+  const tableHeaders: TableHeader[] = [
+    { text: 'Owner' },
+    { text: 'Mineral Interest' },
+    { text: 'NPRI' },
+    { text: 'Lease', colSpan: 2 },
+  ];
 
-const thElements = tableHeaders.map(toThElement);
+  return tableHeaders.map(toThElement);
+})();
 
 const toMineralInterestRow = (mineralInterest: MineralInterest) => (
   <MineralInterestRow key={mineralInterest.id} value={mineralInterest} />
