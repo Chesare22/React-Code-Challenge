@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { MineralInterest } from 'Types';
+import { MineralInterest, Npri } from 'Types';
 
 import { Table } from 'react-bootstrap';
 import MineralInterestRow from './MineralInterestRow';
+import NpriRow from './NpriRow';
 
 interface TableHeader {
   text: string;
@@ -29,6 +30,13 @@ const toMineralInterestRow = (mineralInterest: MineralInterest) => (
   <MineralInterestRow key={mineralInterest.id} value={mineralInterest} />
 );
 
+const toNpriRow = (value: Npri) => <NpriRow key={value.id} value={value} />;
+
+const toRows = (mineralInterest: MineralInterest) => [
+  toMineralInterestRow(mineralInterest),
+  ...mineralInterest.npris.map(toNpriRow),
+];
+
 const EditTractOwnership = ({
   value = [],
   onChange = () => {},
@@ -41,7 +49,7 @@ const EditTractOwnership = ({
       <thead>
         <tr>{thElements}</tr>
       </thead>
-      <tbody>{value.map(toMineralInterestRow)}</tbody>
+      <tbody>{value.map(toRows).flat()}</tbody>
     </Table>
   );
 };

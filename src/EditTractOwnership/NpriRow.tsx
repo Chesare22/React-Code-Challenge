@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { MineralInterest, Npri } from 'Types';
+import { Npri } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
 import InputWithAppendedText from 'atoms/InputWithAppendedText';
 
-const MineralInterestRow = ({ value }: { value: MineralInterest }) => (
+const NpriRow = ({ value }: { value: Npri }) => (
   <tr>
     <td>
       <Form.Control type="text" value={value.owner} />
     </td>
+
+    <td>{/* Mineral interest percentage column */}</td>
 
     <td>
       <InputWithAppendedText type="text" value={value.interest}>
@@ -18,16 +20,14 @@ const MineralInterestRow = ({ value }: { value: MineralInterest }) => (
       </InputWithAppendedText>
     </td>
 
-    <td>{/* NPRI percentage column */}</td>
+    <td>{/* Lease column */}</td>
 
     <td>
-      <Form.Control type="text" value={value.lease} />
-    </td>
-
-    <td>
-      <Button variant="light">{Icon({ icon: 'remove' })}</Button>
+      <Button variant="light">
+        <Icon icon="remove" />
+      </Button>
     </td>
   </tr>
 );
 
-export default MineralInterestRow;
+export default NpriRow;
