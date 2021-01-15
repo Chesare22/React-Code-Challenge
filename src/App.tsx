@@ -10,21 +10,54 @@ import './App.css';
 import EditTractOwnership, { Action } from './EditTractOwnership';
 import Icon from './Icon';
 
+const actions = {
+  updateMineral(
+    state: MineralInterest[],
+    { recordId, propName, newVal }: Required<Omit<Action, 'type'>>
+  ) {
+    const mineral = state.find(({ id }) => id === recordId);
+    if (mineral) {
+      if (propName === 'interest') {
+        mineral[propName] = parseFloat(newVal);
+      } else {
+        mineral[propName] = newVal;
+      }
+    }
+
+    return state;
+  },
+
+  updateNpri(
+    state: MineralInterest[],
+    { recordId, propName, newVal }: Required<Omit<Action, 'type'>>
+  ) {
+    const npri = state
+      .flatMap(({ npris }) => npris)
+      .find(({ id }) => id === recordId);
+
+    if (npri) {
+      if (propName === 'owner') {
+        npri.owner = newVal;
+      } else if (propName === 'interest') {
+        npri.interest = parseFloat(newVal);
+      }
+    }
+
+    return state;
+  },
+};
+
 function reducer(
   state: MineralInterest[],
   { type, recordId, propName, newVal }: Action
 ) {
-  switch (type) {
-    case 'updateMineral':
-      const mineral = state.find(({ id }) => id === recordId);
-      if (mineral && newVal !== undefined && propName) {
-        if (propName === 'interest') {
-          mineral[propName] = parseFloat(newVal);
-        } else {
-          mineral[propName] = newVal;
-        }
-      }
-      break;
+  if (
+    (type === 'updateMineral' || type === 'updateNpri') &&
+    newVal !== undefined &&
+    recordId &&
+    propName
+  ) {
+    return actions[type](state, { recordId, propName, newVal });
   }
   return state;
 }
