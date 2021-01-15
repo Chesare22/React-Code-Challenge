@@ -1,33 +1,49 @@
 import React from 'react';
 
-import { Npri } from 'Types';
+import { Npri, PropertyUpdater } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
 import InputWithAppendedText from 'atoms/InputWithAppendedText';
 
-const NpriRow = ({ value }: { value: Npri }) => (
-  <tr>
-    <td>
-      <Form.Control type="text" value={value.owner} />
-    </td>
+const NpriRow = ({
+  value,
+  onChange: updateProperty = () => () => {},
+}: {
+  value: Npri;
+  onChange?: PropertyUpdater;
+}) => {
+  return (
+    <tr>
+      <td>
+        <Form.Control
+          type="text"
+          value={value.owner}
+          onChange={updateProperty('owner')}
+        />
+      </td>
 
-    <td>{/* Mineral interest percentage column */}</td>
+      <td>{/* Mineral interest percentage column */}</td>
 
-    <td>
-      <InputWithAppendedText type="text" value={value.interest}>
-        %
-      </InputWithAppendedText>
-    </td>
+      <td>
+        <InputWithAppendedText
+          type="text"
+          value={value.interest}
+          onChange={updateProperty('interest')}
+        >
+          %
+        </InputWithAppendedText>
+      </td>
 
-    <td>{/* Lease column */}</td>
+      <td>{/* Lease column */}</td>
 
-    <td>
-      <Button variant="light">
-        <Icon icon="remove" />
-      </Button>
-    </td>
-  </tr>
-);
+      <td>
+        <Button variant="light">
+          <Icon icon="remove" />
+        </Button>
+      </td>
+    </tr>
+  );
+};
 
 export default NpriRow;

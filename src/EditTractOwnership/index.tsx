@@ -39,12 +39,26 @@ const toRows = (mineralInterest: MineralInterest) => [
   ...mineralInterest.npris.map(toNpriRow),
 ];
 
+type Action =
+  | 'addMineral'
+  | 'addNpri'
+  | 'removeMineral'
+  | 'removeNpri'
+  | 'updateMineral'
+  | 'updateNpri'
+  | undefined;
+
 const EditTractOwnership = ({
   value = [],
   onChange = () => {},
 }: {
   value: MineralInterest[];
-  onChange?: Function;
+  onChange?: (change?: {
+    action: Action;
+    recordId?: string;
+    propName?: string;
+    newVal?: any;
+  }) => void;
 }) => {
   return (
     <Table>
