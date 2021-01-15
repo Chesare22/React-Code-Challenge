@@ -51,7 +51,7 @@ const createUpdater = (
   dispatch: Dispatch,
   type: Action['type'],
   recordId: string
-) => (propName: PropName) => (event: any) => {
+): UpdateProperty => (propName) => (event) => {
   dispatch({
     type,
     recordId,
