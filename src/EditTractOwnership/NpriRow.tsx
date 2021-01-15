@@ -18,7 +18,7 @@ const NpriRow = ({
       <td>
         <Form.Control
           type="text"
-          value={value.owner}
+          defaultValue={value.owner}
           onChange={updateProperty('owner')}
         />
       </td>
@@ -28,7 +28,7 @@ const NpriRow = ({
       <td>
         <InputWithAppendedText
           type="text"
-          value={value.interest}
+          defaultValue={value.interest}
           onChange={updateProperty('interest')}
         >
           %

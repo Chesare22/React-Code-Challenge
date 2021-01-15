@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { MineralInterest, PropertyUpdater } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
@@ -18,7 +17,7 @@ const MineralInterestRow = ({
       <td>
         <Form.Control
           type="text"
-          value={value.owner}
+          defaultValue={value.owner}
           onChange={updateProperty('owner')}
         />
       </td>
@@ -26,7 +25,7 @@ const MineralInterestRow = ({
       <td>
         <InputWithAppendedText
           type="text"
-          value={value.interest}
+          defaultValue={value.interest}
           onChange={updateProperty('interest')}
         >
           %
@@ -38,7 +37,7 @@ const MineralInterestRow = ({
       <td>
         <Form.Control
           type="text"
-          value={value.lease}
+          defaultValue={value.lease}
           onChange={updateProperty('lease')}
         />
       </td>
