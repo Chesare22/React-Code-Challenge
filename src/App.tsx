@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+
 import { MineralInterest } from './Types';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import EditTractOwnership from './EditTractOwnership';
+import EditTractOwnership, { Action } from './EditTractOwnership';
 import Icon from './Icon';
+
+function reducer(
+  state: MineralInterest[],
+  { type, recordId, propName, newVal }: Action
+) {
+  switch (type) {
+    case 'updateMineral':
+      const mineral = state.find(({ id }) => id === recordId);
+      if (mineral && newVal !== undefined && propName) {
+        if (propName === 'interest') {
+          mineral[propName] = parseFloat(newVal);
+        } else {
+          mineral[propName] = newVal;
+        }
+      }
+      break;
+  }
+  return state;
+}
 
 const tractOwnerships: MineralInterest[] = [
   {
@@ -31,6 +51,7 @@ const tractOwnerships: MineralInterest[] = [
 ];
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, tractOwnerships);
   return (
     <Container>
       <Row>
@@ -44,7 +65,7 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <EditTractOwnership value={tractOwnerships} />
+          <EditTractOwnership value={state} onChange={dispatch} />
         </Col>
       </Row>
     </Container>
