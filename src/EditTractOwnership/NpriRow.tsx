@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Npri, PropertyUpdater } from 'Types';
+import { Npri, UpdateProperty } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
@@ -11,7 +11,7 @@ const NpriRow = ({
   onChange: updateProperty = () => () => {},
 }: {
   value: Npri;
-  onChange?: PropertyUpdater;
+  onChange?: UpdateProperty;
 }) => {
   return (
     <tr>

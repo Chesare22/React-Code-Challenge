@@ -12,10 +12,8 @@ interface MineralInterest extends Npri {
 type Icon = 'add' | 'indent' | 'remove' | 'smile';
 type Rotation = 90 | 180 | 270 | undefined;
 
-interface PropertyUpdater {
-  (propName?: keyof Omit<MineralInterest, 'id' | 'npris'>): (
-    value: any
-  ) => void;
+interface UpdateProperty {
+  (propName: keyof Omit<MineralInterest, 'id' | 'npris'>): (value: any) => void;
 }
 
-export type { MineralInterest, Npri, Icon, Rotation, PropertyUpdater };
+export type { MineralInterest, Npri, Icon, Rotation, UpdateProperty };

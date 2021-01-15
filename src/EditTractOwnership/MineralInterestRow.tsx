@@ -1,5 +1,5 @@
 import React from 'react';
-import { MineralInterest, PropertyUpdater } from 'Types';
+import { MineralInterest, UpdateProperty } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
@@ -10,7 +10,7 @@ const MineralInterestRow = ({
   onChange: updateProperty = () => () => {},
 }: {
   value: MineralInterest;
-  onChange?: PropertyUpdater;
+  onChange?: UpdateProperty;
 }) => {
   return (
     <tr>

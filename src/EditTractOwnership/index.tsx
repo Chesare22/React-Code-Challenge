@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MineralInterest, Npri, PropertyUpdater } from 'Types';
+import { MineralInterest, Npri, UpdateProperty } from 'Types';
 
 import { Table } from 'react-bootstrap';
 import MineralInterestRow from './MineralInterestRow';
@@ -28,41 +28,50 @@ const thElements = (function () {
   return tableHeaders.map(toThElement);
 })();
 
-type ActionType =
-  | 'addMineral'
-  | 'addNpri'
-  | 'removeMineral'
-  | 'removeNpri'
-  | 'updateMineral'
-  | 'updateNpri';
+type PropName = Parameters<UpdateProperty>[0];
+
+interface Action {
+  type:
+    | 'addMineral'
+    | 'addNpri'
+    | 'removeMineral'
+    | 'removeNpri'
+    | 'updateMineral'
+    | 'updateNpri';
+  recordId?: string;
+  propName?: PropName;
+  newVal?: string;
+}
+
+interface Dispatch {
+  (action: Action): any;
+}
+
+const createUpdater = (
+  dispatch: Dispatch,
+  type: Action['type'],
+  recordId: string
+) => (propName: PropName) => (event: any) => {
+  dispatch({
+    type,
+    recordId,
+    propName,
+    newVal: event.target.value,
+  });
+};
 
 const EditTractOwnership = ({
   value = [],
   onChange = () => {},
 }: {
   value: MineralInterest[];
-  onChange: (change: {
-    type: ActionType;
-    recordId?: string;
-    propName?: Parameters<PropertyUpdater>[0];
-    newVal?: string;
-  }) => any;
+  onChange: Dispatch;
 }) => {
-  const createUpdater = (type: ActionType, recordId: string) => (
-    propName?: Parameters<PropertyUpdater>[0]
-  ) => (event: any) => {
-    onChange({
-      type,
-      recordId,
-      propName,
-      newVal: event.target.value,
-    });
-  };
   const toMineralInterestRow = (mineralInterest: MineralInterest) => (
     <MineralInterestRow
       key={mineralInterest.id}
       value={mineralInterest}
-      onChange={createUpdater('updateMineral', mineralInterest.id)}
+      onChange={createUpdater(onChange, 'updateMineral', mineralInterest.id)}
     />
   );
 
@@ -70,7 +79,7 @@ const EditTractOwnership = ({
     <NpriRow
       key={npri.id}
       value={npri}
-      onChange={createUpdater('updateNpri', npri.id)}
+      onChange={createUpdater(onChange, 'updateNpri', npri.id)}
     />
   );
 
@@ -78,6 +87,7 @@ const EditTractOwnership = ({
     toMineralInterestRow(mineralInterest),
     ...mineralInterest.npris.map(toNpriRow),
   ];
+
   return (
     <Table>
       <thead>
@@ -87,10 +97,6 @@ const EditTractOwnership = ({
     </Table>
   );
 };
-
-type Action = Parameters<
-  Parameters<typeof EditTractOwnership>[0]['onChange']
->[0];
 
 export default EditTractOwnership;
 export type { Action };
