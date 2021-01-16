@@ -1,5 +1,5 @@
 import React from 'react';
-import { MineralInterest, UpdateProperty } from 'Types';
+import { ButtonClickHandler, MineralInterest, UpdateProperty } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
@@ -8,9 +8,11 @@ import InputWithAppendedText from 'atoms/InputWithAppendedText';
 const MineralInterestRow = ({
   value,
   onUpdate: updateProperty = () => () => {},
+  onRemove = () => {},
 }: {
   value: MineralInterest;
   onUpdate?: UpdateProperty<MineralInterest>;
+  onRemove?: ButtonClickHandler;
 }) => {
   return (
     <tr>
@@ -43,7 +45,9 @@ const MineralInterestRow = ({
       </td>
 
       <td>
-        <Button variant="light">{Icon({ icon: 'remove' })}</Button>
+        <Button variant="light" onClick={onRemove}>
+          {Icon({ icon: 'remove' })}
+        </Button>
       </td>
     </tr>
   );

@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 
 interface Npri {
   id: string;
@@ -15,7 +15,9 @@ type Icon = 'add' | 'indent' | 'remove' | 'smile';
 type Rotation = 90 | 180 | 270 | undefined;
 
 type UpdatablePropertyName<T extends Npri> = Exclude<keyof T, 'id' | 'npris'>;
+
 type FormControlHandler = Parameters<typeof Form.Control>[0]['onChange'];
+type ButtonClickHandler = Parameters<typeof Button>[0]['onClick'];
 
 // Tipo de función que recibe el nombre de una propiedad de MineralInterest y
 // devuelve una función que se puede mandar al `onChange` de un Form.Control
@@ -30,4 +32,5 @@ export type {
   Rotation,
   UpdateProperty,
   UpdatablePropertyName,
+  ButtonClickHandler,
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Npri, UpdateProperty } from 'Types';
+import { Npri, UpdateProperty, ButtonClickHandler } from 'Types';
 
 import { Form, Button } from 'react-bootstrap';
 import Icon from 'Icon';
@@ -9,9 +9,11 @@ import InputWithAppendedText from 'atoms/InputWithAppendedText';
 const NpriRow = ({
   value,
   onUpdate: updateProperty = () => () => {},
+  onRemove = () => {},
 }: {
   value: Npri;
   onUpdate?: UpdateProperty<Npri>;
+  onRemove?: ButtonClickHandler;
 }) => {
   return (
     <tr>
@@ -38,7 +40,7 @@ const NpriRow = ({
       <td>{/* Lease column */}</td>
 
       <td>
-        <Button variant="light">
+        <Button variant="light" onClick={onRemove}>
           <Icon icon="remove" />
         </Button>
       </td>

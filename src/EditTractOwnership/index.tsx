@@ -46,6 +46,7 @@ const EditTractOwnership = ({
           propertyName,
           newValue: event.currentTarget.value,
         })}
+      onRemove={() => handlers.removeMineral({ mineralId: mineralInterest.id })}
     />,
     ...mineralInterest.npris.map((npri: Npri) => (
       <NpriRow
@@ -58,6 +59,12 @@ const EditTractOwnership = ({
             propertyName,
             newValue: event.currentTarget.value,
           })}
+        onRemove={() =>
+          handlers.removeNpri({
+            mineralId: mineralInterest.id,
+            npriId: npri.id,
+          })
+        }
       />
     )),
   ];
