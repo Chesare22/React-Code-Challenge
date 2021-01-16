@@ -40,7 +40,8 @@ const NpriRow = ({
 
       <td>
         <InputWithAppendedText
-          type="text"
+          type="number"
+          step="0.01"
           placeholder={t('Interest')}
           defaultValue={value.interest}
           onChange={updateProperty('interest')}
