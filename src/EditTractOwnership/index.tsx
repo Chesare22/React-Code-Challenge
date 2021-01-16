@@ -40,7 +40,7 @@ const EditTractOwnership = ({
     <MineralInterestRow
       key={mineralInterest.id}
       value={mineralInterest}
-      onChange={(propertyName) => (event) =>
+      onUpdate={(propertyName) => (event) =>
         handlers.updateMineral({
           mineralId: mineralInterest.id,
           propertyName,
@@ -51,7 +51,7 @@ const EditTractOwnership = ({
       <NpriRow
         key={npri.id}
         value={npri}
-        onChange={(propertyName) => (event) =>
+        onUpdate={(propertyName) => (event) =>
           handlers.updateNpri({
             mineralId: mineralInterest.id,
             npriId: npri.id,

@@ -7,10 +7,10 @@ import InputWithAppendedText from 'atoms/InputWithAppendedText';
 
 const MineralInterestRow = ({
   value,
-  onChange: updateProperty = () => () => {},
+  onUpdate: updateProperty = () => () => {},
 }: {
   value: MineralInterest;
-  onChange?: UpdateProperty<MineralInterest>;
+  onUpdate?: UpdateProperty<MineralInterest>;
 }) => {
   return (
     <tr>

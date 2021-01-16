@@ -8,10 +8,10 @@ import InputWithAppendedText from 'atoms/InputWithAppendedText';
 
 const NpriRow = ({
   value,
-  onChange: updateProperty = () => () => {},
+  onUpdate: updateProperty = () => () => {},
 }: {
   value: Npri;
-  onChange?: UpdateProperty<Npri>;
+  onUpdate?: UpdateProperty<Npri>;
 }) => {
   return (
     <tr>
