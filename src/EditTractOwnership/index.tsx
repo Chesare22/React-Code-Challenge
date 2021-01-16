@@ -2,7 +2,8 @@ import React from 'react';
 
 import { MineralInterest, Npri, UpdateProperty } from 'Types';
 
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
+import Icon from 'Icon';
 import MineralInterestRow from './MineralInterestRow';
 import NpriRow from './NpriRow';
 import { Handlers } from 'Hooks/useMineralInterestsHandler';
@@ -67,6 +68,17 @@ const EditTractOwnership = ({
         }
       />
     )),
+    <tr>
+      <td>
+        <Button
+          variant="light"
+          onClick={() => handlers.addNpri({ mineralId: mineralInterest.id })}
+        >
+          <Icon icon="add" /> Add NPRI
+        </Button>
+      </td>
+      <td colSpan={5} />
+    </tr>,
   ];
 
   return (
@@ -74,7 +86,17 @@ const EditTractOwnership = ({
       <thead>
         <tr>{thElements}</tr>
       </thead>
-      <tbody>{value.flatMap(toRows)}</tbody>
+      <tbody>
+        {value.flatMap(toRows)}
+        <tr>
+          <td>
+            <Button variant="light" onClick={handlers.addMineral}>
+              <Icon icon="add" /> Add Mineral
+            </Button>
+          </td>
+          <td colSpan={5} />
+        </tr>
+      </tbody>
     </Table>
   );
 };
