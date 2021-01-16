@@ -10,7 +10,7 @@ const MineralInterestRow = ({
   onChange: updateProperty = () => () => {},
 }: {
   value: MineralInterest;
-  onChange?: UpdateProperty;
+  onChange?: UpdateProperty<MineralInterest>;
 }) => {
   return (
     <tr>

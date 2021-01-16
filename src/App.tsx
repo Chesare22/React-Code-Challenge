@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { Col, Container, Jumbotron, Row } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,60 +7,9 @@ import { MineralInterest } from './Types';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
-import EditTractOwnership, { Action } from './EditTractOwnership';
+import EditTractOwnership from './EditTractOwnership';
 import Icon from './Icon';
-
-const actions = {
-  updateMineral(
-    state: MineralInterest[],
-    { recordId, propName, newVal }: Required<Omit<Action, 'type'>>
-  ) {
-    const mineral = state.find(({ id }) => id === recordId);
-    if (mineral) {
-      if (propName === 'interest') {
-        mineral[propName] = parseFloat(newVal);
-      } else {
-        mineral[propName] = newVal;
-      }
-    }
-
-    return state;
-  },
-
-  updateNpri(
-    state: MineralInterest[],
-    { recordId, propName, newVal }: Required<Omit<Action, 'type'>>
-  ) {
-    const npri = state
-      .flatMap(({ npris }) => npris)
-      .find(({ id }) => id === recordId);
-
-    if (npri) {
-      if (propName === 'owner') {
-        npri.owner = newVal;
-      } else if (propName === 'interest') {
-        npri.interest = parseFloat(newVal);
-      }
-    }
-
-    return state;
-  },
-};
-
-function reducer(
-  state: MineralInterest[],
-  { type, recordId, propName, newVal }: Action
-) {
-  if (
-    (type === 'updateMineral' || type === 'updateNpri') &&
-    newVal !== undefined &&
-    recordId &&
-    propName
-  ) {
-    return actions[type](state, { recordId, propName, newVal });
-  }
-  return state;
-}
+import useMineralInterestsHandler from 'Hooks/useMineralInterestsHandler';
 
 const tractOwnerships: MineralInterest[] = [
   {
@@ -84,7 +33,7 @@ const tractOwnerships: MineralInterest[] = [
 ];
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, tractOwnerships);
+  const { state, handlers } = useMineralInterestsHandler(tractOwnerships);
   return (
     <Container>
       <Row>
@@ -98,7 +47,7 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <EditTractOwnership value={state} onChange={dispatch} />
+          <EditTractOwnership value={state} onChange={handlers} />
         </Col>
       </Row>
     </Container>

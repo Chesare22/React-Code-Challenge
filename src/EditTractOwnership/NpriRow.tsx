@@ -11,7 +11,7 @@ const NpriRow = ({
   onChange: updateProperty = () => () => {},
 }: {
   value: Npri;
-  onChange?: UpdateProperty;
+  onChange?: UpdateProperty<Npri>;
 }) => {
   return (
     <tr>

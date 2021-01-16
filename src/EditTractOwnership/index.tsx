@@ -5,6 +5,7 @@ import { MineralInterest, Npri, UpdateProperty } from 'Types';
 import { Table } from 'react-bootstrap';
 import MineralInterestRow from './MineralInterestRow';
 import NpriRow from './NpriRow';
+import { Handlers } from 'Hooks/useMineralInterestsHandler';
 
 const thElements = (function () {
   interface TableHeader {
@@ -28,64 +29,37 @@ const thElements = (function () {
   return tableHeaders.map(toThElement);
 })();
 
-type PropName = Parameters<UpdateProperty>[0];
-
-interface Action {
-  type:
-    | 'addMineral'
-    | 'addNpri'
-    | 'removeMineral'
-    | 'removeNpri'
-    | 'updateMineral'
-    | 'updateNpri';
-  recordId?: string;
-  propName?: PropName;
-  newVal?: string;
-}
-
-interface Dispatch {
-  (action: Action): any;
-}
-
-const createUpdater = (
-  dispatch: Dispatch,
-  type: Action['type'],
-  recordId: string
-): UpdateProperty => (propName) => (event) => {
-  dispatch({
-    type,
-    recordId,
-    propName,
-    newVal: event.target.value,
-  });
-};
-
 const EditTractOwnership = ({
   value = [],
-  onChange = () => {},
+  onChange: handlers,
 }: {
   value: MineralInterest[];
-  onChange: Dispatch;
+  onChange: Handlers;
 }) => {
-  const toMineralInterestRow = (mineralInterest: MineralInterest) => (
+  const toRows = (mineralInterest: MineralInterest) => [
     <MineralInterestRow
       key={mineralInterest.id}
       value={mineralInterest}
-      onChange={createUpdater(onChange, 'updateMineral', mineralInterest.id)}
-    />
-  );
-
-  const toNpriRow = (npri: Npri) => (
-    <NpriRow
-      key={npri.id}
-      value={npri}
-      onChange={createUpdater(onChange, 'updateNpri', npri.id)}
-    />
-  );
-
-  const toRows = (mineralInterest: MineralInterest) => [
-    toMineralInterestRow(mineralInterest),
-    ...mineralInterest.npris.map(toNpriRow),
+      onChange={(propertyName) => (event) =>
+        handlers.updateMineral({
+          mineralId: mineralInterest.id,
+          propertyName,
+          newValue: event.currentTarget.value,
+        })}
+    />,
+    ...mineralInterest.npris.map((npri: Npri) => (
+      <NpriRow
+        key={npri.id}
+        value={npri}
+        onChange={(propertyName) => (event) =>
+          handlers.updateNpri({
+            mineralId: mineralInterest.id,
+            npriId: npri.id,
+            propertyName,
+            newValue: event.currentTarget.value,
+          })}
+      />
+    )),
   ];
 
   return (
@@ -93,10 +67,9 @@ const EditTractOwnership = ({
       <thead>
         <tr>{thElements}</tr>
       </thead>
-      <tbody>{value.map(toRows).flat()}</tbody>
+      <tbody>{value.flatMap(toRows)}</tbody>
     </Table>
   );
 };
 
 export default EditTractOwnership;
-export type { Action };
