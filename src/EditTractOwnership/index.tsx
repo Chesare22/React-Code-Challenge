@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { MineralInterest, Npri } from 'Types';
 
@@ -8,28 +9,6 @@ import MineralInterestRow from './MineralInterestRow';
 import NpriRow from './NpriRow';
 import { Handlers } from 'Hooks/useMineralInterestsHandler';
 
-const thElements = (function () {
-  interface TableHeader {
-    text: string;
-    colSpan?: number;
-  }
-
-  const toThElement = ({ text, colSpan }: TableHeader) => (
-    <th key={text} colSpan={colSpan}>
-      {text}
-    </th>
-  );
-
-  const tableHeaders: TableHeader[] = [
-    { text: 'Owner' },
-    { text: 'Mineral Interest' },
-    { text: 'NPRI' },
-    { text: 'Lease', colSpan: 2 },
-  ];
-
-  return tableHeaders.map(toThElement);
-})();
-
 const EditTractOwnership = ({
   value = [],
   onChange: handlers,
@@ -37,6 +16,30 @@ const EditTractOwnership = ({
   value: MineralInterest[];
   onChange: Handlers;
 }) => {
+  const { t } = useTranslation();
+
+  const thElements = (function () {
+    interface TableHeader {
+      text: string;
+      colSpan?: number;
+    }
+
+    const toThElement = ({ text, colSpan }: TableHeader) => (
+      <th key={text} colSpan={colSpan}>
+        {text}
+      </th>
+    );
+
+    const tableHeaders: TableHeader[] = [
+      { text: t('Owner') },
+      { text: t('Mineral Interest') },
+      { text: t('NPRI') },
+      { text: t('Lease'), colSpan: 2 },
+    ];
+
+    return tableHeaders.map(toThElement);
+  })();
+
   const toRows = (mineralInterest: MineralInterest) => [
     <MineralInterestRow
       key={mineralInterest.id}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Npri, UpdateProperty, ButtonClickHandler } from 'Types';
 
@@ -15,6 +16,7 @@ const NpriRow = ({
   onUpdate?: UpdateProperty<Npri>;
   onRemove?: ButtonClickHandler;
 }) => {
+  const { t } = useTranslation();
   return (
     <tr>
       <td>
@@ -27,6 +29,7 @@ const NpriRow = ({
 
           <Form.Control
             type="text"
+            placeholder={t('Owner')}
             defaultValue={value.owner}
             onChange={updateProperty('owner')}
           />
@@ -38,6 +41,7 @@ const NpriRow = ({
       <td>
         <InputWithAppendedText
           type="text"
+          placeholder={t('Interest')}
           defaultValue={value.interest}
           onChange={updateProperty('interest')}
         >
