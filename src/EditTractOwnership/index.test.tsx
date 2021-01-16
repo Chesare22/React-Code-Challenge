@@ -2,7 +2,8 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { render, fireEvent, screen } from '@testing-library/react';
 
-import EditTractOwnership from './';
+import EditTractOwnership from '.';
+import { MineralInterest } from 'Types';
 
 describe('EditTractOwnership', () => {
   test('Should render without a value', () => {
@@ -16,14 +17,14 @@ describe('EditTractOwnership', () => {
       {
         id: uuidv4(),
         owner: 'Luke Skywalker',
-        interest: '50',
+        interest: 50,
         lease: 'Tatooine Lease',
         npris: [],
       },
       {
         id: uuidv4(),
         owner: 'Leia Organa',
-        interest: '5',
+        interest: 5,
         lease: 'Alderaan Lease',
         npris: [],
       },
@@ -49,21 +50,22 @@ describe('EditTractOwnership', () => {
       {
         id: uuidv4(),
         owner: 'Luke Skywalker',
-        interest: '50',
+        interest: 50,
         lease: 'Tatooine Lease',
         npris: [
           {
             id: uuidv4(),
             owner: 'Han Solo',
-            interest: '10',
+            interest: 10,
           },
         ],
       },
       {
         id: uuidv4(),
         owner: 'Leia Organa',
-        interest: '5',
+        interest: 5,
         lease: 'Alderaan Lease',
+        npris: [],
       },
     ];
 
@@ -86,7 +88,7 @@ describe('EditTractOwnership', () => {
   });
 
   test('Should add empty mineral interest row', () => {
-    let result;
+    let result: MineralInterest[] = [];
 
     render(<EditTractOwnership onChange={(v) => (result = v)} />);
 
@@ -98,7 +100,7 @@ describe('EditTractOwnership', () => {
   });
 
   test('Should add and update mineral interest row', () => {
-    let result;
+    let result: MineralInterest[] = [];
 
     render(<EditTractOwnership onChange={(v) => (result = v)} />);
 
@@ -124,7 +126,7 @@ describe('EditTractOwnership', () => {
   });
 
   test('Should add and update mineral interest + NPRI row', () => {
-    let result;
+    let result: MineralInterest[] = [];
 
     render(<EditTractOwnership onChange={(v) => (result = v)} />);
 
@@ -165,19 +167,21 @@ describe('EditTractOwnership', () => {
   });
 
   test('Should remove mineral interest row', () => {
-    let result;
+    let result: MineralInterest[] = [];
     const value = [
       {
         id: uuidv4(),
         owner: 'Luke Skywalker',
-        interest: '50',
+        interest: 50,
         lease: 'Tatooine Lease',
+        npris: [],
       },
       {
         id: uuidv4(),
         owner: 'Leia Organa',
-        interest: '5',
+        interest: 5,
         lease: 'Alderaan Lease',
+        npris: [],
       },
     ];
 
@@ -195,26 +199,27 @@ describe('EditTractOwnership', () => {
   });
 
   test('Should remove NPRI row', () => {
-    let result;
+    let result: MineralInterest[] = [];
     const value = [
       {
         id: uuidv4(),
         owner: 'Luke Skywalker',
-        interest: '50',
+        interest: 50,
         lease: 'Tatooine Lease',
         npris: [
           {
             id: uuidv4(),
             owner: 'Han Solo',
-            interest: '10',
+            interest: 10,
           },
         ],
       },
       {
         id: uuidv4(),
         owner: 'Leia Organa',
-        interest: '5',
+        interest: 5,
         lease: 'Alderaan Lease',
+        npris: [],
       },
     ];
 
