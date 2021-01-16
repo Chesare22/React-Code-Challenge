@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Npri, UpdateProperty, ButtonClickHandler } from 'Types';
 
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, InputGroup } from 'react-bootstrap';
 import Icon from 'Icon';
 import InputWithAppendedText from 'atoms/InputWithAppendedText';
 
@@ -18,11 +18,19 @@ const NpriRow = ({
   return (
     <tr>
       <td>
-        <Form.Control
-          type="text"
-          defaultValue={value.owner}
-          onChange={updateProperty('owner')}
-        />
+        <InputGroup>
+          <InputGroup.Prepend>
+            <InputGroup.Text className="bg-transparent border-0">
+              <Icon icon="indent" />
+            </InputGroup.Text>
+          </InputGroup.Prepend>
+
+          <Form.Control
+            type="text"
+            defaultValue={value.owner}
+            onChange={updateProperty('owner')}
+          />
+        </InputGroup>
       </td>
 
       <td>{/* Mineral interest percentage column */}</td>

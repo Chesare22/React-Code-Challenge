@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { MineralInterest, Npri, UpdateProperty } from 'Types';
+import { MineralInterest, Npri } from 'Types';
 
 import { Table, Button } from 'react-bootstrap';
 import Icon from 'Icon';
@@ -69,7 +69,7 @@ const EditTractOwnership = ({
       />
     )),
     <tr>
-      <td>
+      <td className="text-right">
         <Button
           variant="light"
           onClick={() => handlers.addNpri({ mineralId: mineralInterest.id })}
@@ -89,9 +89,9 @@ const EditTractOwnership = ({
       <tbody>
         {value.flatMap(toRows)}
         <tr>
-          <td>
+          <td className="text-right">
             <Button variant="light" onClick={handlers.addMineral}>
-              <Icon icon="add" /> Add Mineral
+              <Icon icon="add" /> Add Mineral Interest
             </Button>
           </td>
           <td colSpan={5} />
