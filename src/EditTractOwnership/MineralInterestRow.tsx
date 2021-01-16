@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import './index.css';
 
 import { ButtonClickHandler, MineralInterest, UpdateProperty } from 'Types';
 
@@ -20,7 +21,7 @@ const MineralInterestRow = ({
 
   return (
     <tr>
-      <td>
+      <td className="readable-cell">
         <Form.Control
           type="text"
           placeholder={t('Owner')}
@@ -29,7 +30,7 @@ const MineralInterestRow = ({
         />
       </td>
 
-      <td>
+      <td className="readable-cell">
         <InputWithAppendedText
           type="number"
           step="0.01"
@@ -43,7 +44,7 @@ const MineralInterestRow = ({
 
       <td>{/* NPRI percentage column */}</td>
 
-      <td>
+      <td className="readable-cell">
         <Form.Control
           type="text"
           placeholder={t('Lease')}

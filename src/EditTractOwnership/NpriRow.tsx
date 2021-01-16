@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import './index.css';
+
 import { Npri, UpdateProperty, ButtonClickHandler } from 'Types';
 
 import { Form, Button, InputGroup } from 'react-bootstrap';
@@ -19,7 +21,7 @@ const NpriRow = ({
   const { t } = useTranslation();
   return (
     <tr>
-      <td>
+      <td className="readable-cell">
         <InputGroup>
           <InputGroup.Prepend>
             <InputGroup.Text className="bg-transparent border-0">
@@ -38,7 +40,7 @@ const NpriRow = ({
 
       <td>{/* Mineral interest percentage column */}</td>
 
-      <td>
+      <td className="readable-cell">
         <InputWithAppendedText
           type="number"
           step="0.01"

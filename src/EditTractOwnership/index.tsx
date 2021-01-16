@@ -85,7 +85,7 @@ const EditTractOwnership = ({
   ];
 
   return (
-    <Table>
+    <Table responsive>
       <thead>
         <tr>{thElements}</tr>
       </thead>
