@@ -38,7 +38,10 @@ const valueOf = (propertyName: string) => ({
   isNot: (value: any) => (obj: any) => obj[propertyName] !== value,
 });
 
-function useMineralInterestsHandler(initialValue: MineralInterest[]) {
+function useMineralInterestsHandler(
+  initialValue: MineralInterest[],
+  onChange: (newState: MineralInterest[]) => void
+) {
   const [[...state], setState] = useState(initialValue);
 
   const findMineralInterest = (mineralId: string) =>
@@ -53,10 +56,13 @@ function useMineralInterestsHandler(initialValue: MineralInterest[]) {
       });
 
       setState(state);
+      onChange(state);
     },
 
     removeMineral: ({ mineralId }) => {
-      setState(state.filter(valueOf('id').isNot(mineralId)));
+      const newState = state.filter(valueOf('id').isNot(mineralId));
+      setState(newState);
+      onChange(state);
     },
 
     updateMineral: ({ mineralId, propertyName, newValue }) => {
@@ -73,6 +79,7 @@ function useMineralInterestsHandler(initialValue: MineralInterest[]) {
       }
 
       setState(state);
+      onChange(state);
     },
 
     addNpri: ({ mineralId }) => {
@@ -80,6 +87,7 @@ function useMineralInterestsHandler(initialValue: MineralInterest[]) {
       mineral?.npris.push(createNpri());
 
       setState(state);
+      onChange(state);
     },
 
     removeNpri: ({ mineralId, npriId }) => {
@@ -89,6 +97,7 @@ function useMineralInterestsHandler(initialValue: MineralInterest[]) {
       }
 
       setState(state);
+      onChange(state);
     },
 
     updateNpri: ({ mineralId, npriId, propertyName, newValue }) => {
@@ -106,6 +115,7 @@ function useMineralInterestsHandler(initialValue: MineralInterest[]) {
       }
 
       setState(state);
+      onChange(state);
     },
   };
 

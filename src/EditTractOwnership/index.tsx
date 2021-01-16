@@ -7,16 +7,17 @@ import { Table, Button } from 'react-bootstrap';
 import Icon from 'Icon';
 import MineralInterestRow from './MineralInterestRow';
 import NpriRow from './NpriRow';
-import { Handlers } from 'Hooks/useMineralInterestsHandler';
+import useMineralInterestsHandler from 'Hooks/useMineralInterestsHandler';
 
 const EditTractOwnership = ({
   value = [],
-  onChange: handlers,
+  onChange = () => {},
 }: {
-  value: MineralInterest[];
-  onChange: Handlers;
+  value?: MineralInterest[];
+  onChange?: (state: MineralInterest[]) => void;
 }) => {
   const { t } = useTranslation();
+  const { state, handlers } = useMineralInterestsHandler(value, onChange);
 
   const thElements = (function () {
     interface TableHeader {
@@ -71,7 +72,7 @@ const EditTractOwnership = ({
         }
       />
     )),
-    <tr>
+    <tr key={mineralInterest.id + '_'}>
       <td className="text-right">
         <Button
           variant="light"
@@ -90,7 +91,7 @@ const EditTractOwnership = ({
         <tr>{thElements}</tr>
       </thead>
       <tbody>
-        {value.flatMap(toRows)}
+        {state.flatMap(toRows)}
         <tr>
           <td className="text-right">
             <Button variant="light" onClick={handlers.addMineral}>

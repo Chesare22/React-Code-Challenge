@@ -33,7 +33,6 @@ const tractOwnerships: MineralInterest[] = [
 ];
 
 function App() {
-  const { state, handlers } = useMineralInterestsHandler(tractOwnerships);
   return (
     <Container>
       <Row>
@@ -47,7 +46,10 @@ function App() {
       </Row>
       <Row>
         <Col>
-          <EditTractOwnership value={state} onChange={handlers} />
+          <EditTractOwnership
+            value={tractOwnerships}
+            onChange={(state) => console.log('changing state: ', state)}
+          />
         </Col>
       </Row>
     </Container>
